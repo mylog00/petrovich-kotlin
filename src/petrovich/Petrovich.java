@@ -16,6 +16,8 @@ import petrovich.util.rules.data.Rules;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import static petrovich.util.CommonUtils.isEmpty;
+
 /**
  * Склонение падежей русских имён фамилий и отчеств. Вы задаёте начальное имя в именительном падеже,
  * а получаете в нужном вам.
@@ -123,7 +125,7 @@ public class Petrovich {
 		return res;
 	}
 
-	private Rule Find(String name, List<Rule> rules, Boolean matchWholeWord, Set<String> tags)
+	private Rule Find(String name, Rule[] rules, Boolean matchWholeWord, Set<String> tags)
 	{
 		for (Rule rule: rules) {
 			if(MatchRule(name, rule, matchWholeWord, tags))
@@ -135,7 +137,7 @@ public class Petrovich {
 //
 	private Boolean MatchRule(String name, Rule rule, Boolean matchWholeWord, Set<String> tags)
 	{
-		if (rule.tags == null || rule.tags.isEmpty() )
+		if (rule.tags == null || isEmpty(rule.tags))
 		return false;
 
 		EGender genderRule = null;
@@ -184,15 +186,15 @@ public class Petrovich {
 			case nominative:
 				return "";
 			case genitive:
-				return rule.mods.get(0);
+				return rule.mods[0];
 			case dative:
-				return rule.mods.get(1);
+				return rule.mods[1];
 			case accusative:
-				return rule.mods.get(2);
+				return rule.mods[2];
 			case instrumental:
-				return rule.mods.get(3);
+				return rule.mods[3];
 			case prepositional:
-				return rule.mods.get(4);
+				return rule.mods[4];
 			default:
 				throw new IllegalArgumentException(String.format("Unknown grammatical case: %s", nameCase));
 		}

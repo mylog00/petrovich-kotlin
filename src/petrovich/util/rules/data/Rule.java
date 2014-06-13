@@ -1,8 +1,6 @@
 /*$Id:$*/
 package petrovich.util.rules.data;
 
-import java.util.List;
-
 /**
  * @author DMITRY KNYAZEV
  * @since 08.06.2014
@@ -10,7 +8,7 @@ import java.util.List;
 public class Rule
 {
 	public String gender;
-	public List<String> test;
-	public List<String> mods;
-	public List<String> tags;
+	public String[] test;
+	public String[] mods;
+	public String[] tags;
 }
