@@ -131,8 +131,12 @@ public class Petrovich {
 			if(MatchRule(name, rule, matchWholeWord, tags))
 				return rule;
 		}
-		return null;
 		//return rules.FirstOrDefault(rule => MatchRule(name, rule, matchWholeWord, tags));
+		for(Rule rule: rules) {
+			if( MatchRule(name, rule, matchWholeWord, tags) )
+				return rule;
+		}
+		return null;
 	}
 //
 	private Boolean MatchRule(String name, Rule rule, Boolean matchWholeWord, Set<String> tags)

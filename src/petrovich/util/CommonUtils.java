@@ -19,9 +19,6 @@ public abstract class CommonUtils
 		return res.toString();
 	}
 	public static boolean isEmpty(String[] str) {
-		if(str == null || str.length <= 0)
-			return false;
-		else
-			return true;
+		return str != null && str.length > 0;
 	}
 }
