@@ -232,7 +232,7 @@ firstname:
 
     - gender: male
       test: [пётр]
-      mods: [--етра, --етру, --етра, --етром, --етре]
+      mods: [---етра, ---етру, ---етра, ---етром, ---етре]
 
     - gender: male
       test: [павел]
@@ -288,6 +288,14 @@ firstname:
       mods: [-ы, -е, -у, -ой, -е]
 
     - gender: female
+      test: [я]
+      mods: [-и, -е, -ю, -ей, -е]
+
+    - gender: male
+      test: [ия]
+      mods: [-и, -и, -ю, -ей, -и]
+
+    - gender: male
       test: [я]
       mods: [-и, -е, -ю, -ей, -е]
 
