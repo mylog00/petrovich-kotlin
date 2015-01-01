@@ -11,20 +11,34 @@ import java.io.FileNotFoundException;
  * @author DMITRY KNYAZEV
  * @since 31.05.2014
  */
-public abstract class RulesLoader implements IRulesLoader
-{
-	public static Rules load() throws FileNotFoundException
-	{
-		return load(null);
+public final class RulesLoader {
+	private RulesLoader() {
+		throw new AssertionError("It helper class. Create instance");
 	}
 
-	public static Rules load( String path ) throws FileNotFoundException
-	{
+	/**
+	 * Загрузка правил из JAML файла по умолчанию
+	 *
+	 * @return набор правил
+	 * @throws FileNotFoundException
+	 */
+	public static Rules loadRules() throws FileNotFoundException {
+		return loadRules(null);
+	}
+
+	/**
+	 * Загрузка правил из JAML указанного файла
+	 *
+	 * @param path путь до файла с правилами
+	 * @return набор правил
+	 * @throws FileNotFoundException
+	 */
+	public static Rules loadRules(String path) throws FileNotFoundException {
 		File rule;
-		if( path == null || path.isEmpty() )
-			rule = new File("rules.yml");
-		else
-			rule = new File(path);
+		if (path == null || path.isEmpty())
+			path = "rules.yml";
+
+		rule = new File(path);
 		return Yaml.loadType(rule, Rules.class);
 	}
 }
