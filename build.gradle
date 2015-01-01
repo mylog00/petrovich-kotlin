@@ -1,0 +1,16 @@
+apply plugin: 'java'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	compile "org.jyaml:jyaml:1.3"
+	testCompile "junit:junit:4.12"
+}
+
+jar {
+	baseName = 'jPetrovich'
+	version = '0.0.1'
+}

@@ -3,6 +3,7 @@ package jPetrovich;
 
 import jPetrovich.util.ECase;
 import jPetrovich.util.EGender;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 
@@ -21,7 +22,7 @@ public class TPetrovich
 		System.out.println(p.lastname("Воронов", ECase.dative));
 	}
 
-	//@Test
+	@Test
 	public void TDetectGender() throws FileNotFoundException
 	{
 		String maleString = "Алексеевич";
