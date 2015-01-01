@@ -1,22 +1,22 @@
-package petrovich;
+package jPetrovich;
 
 /**
  * @author DMITRY KNYAZEV
  * @since 31.05.2014
  */
 
-import petrovich.util.CommonUtils;
-import petrovich.util.ECase;
-import petrovich.util.EGender;
-import petrovich.util.rules.RulesLoader;
-import petrovich.util.rules.data.Rule;
-import petrovich.util.rules.data.RuleSet;
-import petrovich.util.rules.data.Rules;
+import jPetrovich.util.CommonUtils;
+import jPetrovich.util.ECase;
+import jPetrovich.util.EGender;
+import jPetrovich.util.rules.RulesLoader;
+import jPetrovich.util.rules.data.Rule;
+import jPetrovich.util.rules.data.RuleSet;
+import jPetrovich.util.rules.data.Rules;
 
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import static petrovich.util.CommonUtils.isEmpty;
+import static jPetrovich.util.CommonUtils.isEmpty;
 
 /**
  * Склонение падежей русских имён фамилий и отчеств. Вы задаёте начальное имя в именительном падеже,
@@ -47,9 +47,11 @@ public class Petrovich {
 	public String lastname(String lastName, ECase nameCase) {
 		return inflectTo(lastName, nameCase, getRules().lastname);
 	}
+
 	public String firstname(String firstName, ECase nameCase) {
 		return inflectTo(firstName, nameCase, getRules().firstname);
 	}
+
 	public String middlename(String middleName, ECase nameCase) {
 		if(middleName != null) setGender(detectGender(middleName));
 		return inflectTo(middleName, nameCase, getRules().middlename);
@@ -138,13 +140,14 @@ public class Petrovich {
 		}
 		return null;
 	}
-//
+
 	private Boolean MatchRule(String name, Rule rule, Boolean matchWholeWord, Set<String> tags)
 	{
 		if (rule.tags == null || isEmpty(rule.tags))
 		return false;
 
 		EGender genderRule = null;
+        boolean tryParse = EGender.TryParse(rule.gender, genderRule);
 		if (EGender.TryParse(rule.gender, genderRule) &&
 				((genderRule == EGender.male && getGender() == EGender.female) ||
 						(genderRule == EGender.female && getGender() != EGender.female)))
@@ -165,7 +168,7 @@ public class Petrovich {
 
 	private String Apply(String name, ECase nameCase, Rule rule)
 	{
-		for (char str : FindCaseModificator(nameCase, rule).toCharArray())
+		for (char str : FindCaseModifier(nameCase, rule).toCharArray())
 		{
 			switch (str)
 			{
@@ -183,7 +186,7 @@ public class Petrovich {
 		return name;
 	}
 
-	private String FindCaseModificator(ECase nameCase, Rule rule)
+	private String FindCaseModifier(ECase nameCase, Rule rule)
 	{
 		switch (nameCase)
 		{

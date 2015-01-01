@@ -1,5 +1,5 @@
 /*$Id:$*/
-package petrovich.util.rules;
+package jPetrovich.util.rules;
 
 /**
  * @author DMITRY KNYAZEV

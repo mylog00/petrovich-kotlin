@@ -1,8 +1,8 @@
 /*$Id:$*/
-package petrovich.util.rules;
+package jPetrovich.util.rules;
 
 import org.ho.yaml.Yaml;
-import petrovich.util.rules.data.Rules;
+import jPetrovich.util.rules.data.Rules;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,7 +25,6 @@ public abstract class RulesLoader implements IRulesLoader
 			rule = new File("rules.yml");
 		else
 			rule = new File(path);
-		//Map<String, Object> o = (Map<String, Object>) Yaml.load(rule);
 		return Yaml.loadType(rule, Rules.class);
 	}
 }
