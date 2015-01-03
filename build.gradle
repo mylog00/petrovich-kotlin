@@ -9,7 +9,7 @@ repositories {
 // tag::jar[]
 jar {
 	baseName = 'jPetrovich'
-	version = '0.0.1'
+	version = '0.1.0'
 }
 // end::jar[]
 
@@ -26,7 +26,4 @@ dependencies {
 //	gradleVersion = '2.11'
 //}
 // end::wrapper[]
-
-//gradle.user.home = new File("D:/Programs/gradle/repository")
-println gradle.getGradleUserHomeDir().path
 

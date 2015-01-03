@@ -1,8 +1,6 @@
 /*$Id:$*/
 package jPetrovich.util;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * @author DMITRY KNYAZEV
  * @since 08.06.2014
@@ -28,15 +26,5 @@ public final class CommonUtils {
 			if (suffix.equals("на")) return EGender.female;
 		}
 		return EGender.androgynous;
-	}
-
-	/**
-	 * Проверяет является массив пустым
-	 *
-	 * @param str массив для проверки
-	 * @return {@code true} если массив пустой, иначе {@code false}
-	 */
-	public static boolean isEmptyArray(String[] str) {
-		return str != null && str.length > 0;
 	}
 }

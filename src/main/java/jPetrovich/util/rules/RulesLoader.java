@@ -1,8 +1,8 @@
 /*$Id:$*/
 package jPetrovich.util.rules;
 
-import org.ho.yaml.Yaml;
 import jPetrovich.util.rules.data.Rules;
+import org.ho.yaml.Yaml;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,21 +17,21 @@ public final class RulesLoader {
 	}
 
 	/**
-	 * Загрузка правил из JAML файла по умолчанию
+	 * Load rules from JAML file by default path
 	 *
-	 * @return набор правил
-	 * @throws FileNotFoundException
+	 * @return rules
+	 * @throws FileNotFoundException if file path not exist
 	 */
 	public static Rules loadRules() throws FileNotFoundException {
-		return loadRules(null);
+		return loadRules("");
 	}
 
 	/**
-	 * Загрузка правил из JAML указанного файла
+	 * Load rules from JAML file path
 	 *
-	 * @param path путь до файла с правилами
-	 * @return набор правил
-	 * @throws FileNotFoundException
+	 * @param path path to rules file
+	 * @return rules
+	 * @throws FileNotFoundException if file path not exist
 	 */
 	public static Rules loadRules(String path) throws FileNotFoundException {
 		File rule;
