@@ -1,5 +1,7 @@
 apply plugin: 'java'
 
+sourceCompatibility = JavaVersion.VERSION_1_7
+
 // tag::repositories[]
 repositories {
 	mavenCentral()
@@ -10,6 +12,12 @@ repositories {
 jar {
 	baseName = 'jPetrovich'
 	version = '0.1.0'
+	manifest.attributes(
+			"Created-By": "Dmitry Knyazev",
+			"Implementation-Version":version,
+			"Java-Version": sourceCompatibility.toString(),
+			"Build-Time": new Date().toString()
+	)
 }
 // end::jar[]
 
