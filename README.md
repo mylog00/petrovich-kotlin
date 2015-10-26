@@ -1,4 +1,4 @@
-![Petrovich](petrovich.png) ﻿NPetrovich
+![Petrovich](petrovich.png) ﻿JPetrovich
 ==========
 
 jPetrovich is library which inflects Russian names to given grammatical case. It supports first names, last names and middle names inflections.
