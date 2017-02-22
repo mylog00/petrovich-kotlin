@@ -1,4 +1,3 @@
-/*$Id:$*/
 package jPetrovich.util.rules.data;
 
 /**

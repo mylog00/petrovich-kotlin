@@ -13,11 +13,11 @@ import java.io.FileNotFoundException;
  */
 public final class RulesLoader {
 	private RulesLoader() {
-		throw new AssertionError("It helper class. Create instance");
+		throw new AssertionError("It helper class. Create instance forbidden");
 	}
 
 	/**
-	 * Load rules from JAML file by default path
+	 * Load rules from YAML file by default path
 	 *
 	 * @return rules
 	 * @throws FileNotFoundException if file path not exist
@@ -27,7 +27,7 @@ public final class RulesLoader {
 	}
 
 	/**
-	 * Load rules from JAML file path
+	 * Load rules from YAML file path
 	 *
 	 * @param path path to rules file
 	 * @return rules
