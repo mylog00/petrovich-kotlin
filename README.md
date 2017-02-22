@@ -1,5 +1,6 @@
 ![Petrovich](petrovich.png) ﻿JPetrovich
 ==========
+[![Build Status](https://travis-ci.org/mylog00/jPetrovich.svg?branch=master)](https://travis-ci.org/mylog00/jPetrovich)
 
 jPetrovich is library which inflects Russian names to given grammatical case. It supports first names, last names and middle names inflections.
 
