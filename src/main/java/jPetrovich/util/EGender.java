@@ -9,10 +9,6 @@ public enum EGender {
 	female("женский"),      // женский
 	androgynous("средний"); // средний
 
-	public static final String MALE = "male";
-	public static final String FEMALE = "female";
-	public static final String ANDROGYNOUS = "androgynous";
-
 	private final String _rusTitle;
 
 	EGender(String rusTitle) {
@@ -32,20 +28,11 @@ public enum EGender {
 	 * @return gender if the value parameter was converted successfully; otherwise, {@code null}.
 	 */
 	public static EGender getGender(String value) {
-		String toLowString = value.toLowerCase();
-
-		switch (toLowString) {
-			case MALE: {
-				return male;
-			}
-			case FEMALE: {
-				return female;
-			}
-			case ANDROGYNOUS: {
-				return androgynous;
-			}
-			default:
-				return null;
-		}
+		try {
+			return valueOf(value.toLowerCase());
+                }
+                catch (IllegalArgumentException e) {
+			return null;
+                }
 	}
 }
