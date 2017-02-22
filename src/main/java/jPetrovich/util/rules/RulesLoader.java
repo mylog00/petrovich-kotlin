@@ -23,7 +23,7 @@ public final class RulesLoader {
 	 * @throws FileNotFoundException if file path not exist
 	 */
 	public static Rules loadRules() throws FileNotFoundException {
-		return loadRules("");
+		return loadRules("rules.yml");
 	}
 
 	/**
@@ -34,11 +34,6 @@ public final class RulesLoader {
 	 * @throws FileNotFoundException if file path not exist
 	 */
 	public static Rules loadRules(String path) throws FileNotFoundException {
-		File rule;
-		if (path == null || path.isEmpty())
-			path = "rules.yml";
-
-		rule = new File(path);
-		return Yaml.loadType(rule, Rules.class);
+		return Yaml.loadType(new File(path), Rules.class);
 	}
 }
