@@ -1,18 +1,18 @@
-![Petrovich](petrovich.png) ﻿JPetrovich
+![Petrovich](petrovich.png) ﻿Petrovich-Kotlin
 ==========
-[![Build Status](https://travis-ci.org/mylog00/jPetrovich.svg?branch=master)](https://travis-ci.org/mylog00/jPetrovich)
+[![Build Status](https://travis-ci.org/mylog00/petrovich-kotlin.svg?branch=master)](https://travis-ci.org/mylog00/petrovich-kotlin)
 
-jPetrovich is library which inflects Russian names to given grammatical case. It supports first names, last names and middle names inflections.
+Petrovich-Kotlin is library which inflects Russian names to given grammatical case. It supports first names, last names and middle names inflections.
 
-jPetrovich is Java implementation of [Petrovich](https://github.com/petrovich/petrovich-ruby) ruby gem.
+﻿Petrovich-Kotlin is Kotlin implementation of [Petrovich](https://github.com/petrovich/petrovich-ruby) ruby gem.
 
 P.S. Most code was ported from [NPetrovich](https://github.com/petrovich/petrovich-net).
 But maybe I rewrite it better. And now we have what we have.
 
 ## Installation
 
-Just reference jPetrovich jar to your project.
-You also need to copy `rules.yml` to folder with jar or specify the path.
+Just reference ﻿Petrovich-Kotlin jar to your project.
+You can use default `rules.yml` included into jar or specify the path to you rules.
 
 ## Usage
 
