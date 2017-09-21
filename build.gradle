@@ -36,6 +36,17 @@ dependencies {
 }
 // end::dependencies
 
+// tag::source sets
+sourceSets {
+    main {
+        resources {
+            srcDirs += ["petrovich-rules/"]
+            includes += ["gender.yml", "rules.yml"]
+        }
+    }
+}
+// end::source sets
+
 // tag::kotlin-compile
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
@@ -47,7 +58,7 @@ compileTestKotlin {
 
 // tag::wrapper
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.2'
 }
 // end::wrapper
 
