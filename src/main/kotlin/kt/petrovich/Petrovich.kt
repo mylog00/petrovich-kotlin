@@ -1,14 +1,9 @@
 package kt.petrovich
 
-/**
- * @author DMITRY KNYAZEV
- * @since 31.05.2014
- */
-
-import kt.petrovich.util.rules.RulesLoader
-import kt.petrovich.util.rules.data.Rule
-import kt.petrovich.util.rules.data.RuleSet
-import kt.petrovich.util.rules.data.Rules
+import kt.petrovich.rules.RulesLoader
+import kt.petrovich.rules.data.Rule
+import kt.petrovich.rules.data.RuleSet
+import kt.petrovich.rules.data.Rules
 import org.apache.commons.lang3.StringUtils
 
 import java.io.FileNotFoundException
@@ -16,22 +11,11 @@ import java.util.ArrayList
 import java.util.Arrays
 import java.util.HashMap
 
-class Petrovich {
-
-    //getters/setters
-    val rules: Rules
-
-    /**
-     * Use specified rules
-     *
-     * @param rules you rules.
-     * @throws NullPointerException if rules is `null`
-     */
-    @Throws(NullPointerException::class)
-    constructor(rules: Rules?) {
-        if (rules == null) throw NullPointerException("Rules must not be null")
-        this.rules = rules
-    }
+/**
+ * @author Dmitrii Kniazev
+ * @since 31.05.2014
+ */
+class Petrovich(private val rules: Rules) {
 
     /**
      * Load rules from file path
@@ -40,9 +24,7 @@ class Petrovich {
      * @throws FileNotFoundException if file path not exist
      */
     @Throws(FileNotFoundException::class)
-    constructor(path: String) : this(RulesLoader.loadRules(path)) {
-
-    }
+    constructor(path: String) : this(RulesLoader.loadRules(path))
 
     /**
      * Load rules from default file path.
@@ -51,8 +33,7 @@ class Petrovich {
      * @throws FileNotFoundException if file path not exist
      */
     @Throws(FileNotFoundException::class)
-    constructor() : this(RulesLoader.loadRules()) {
-    }
+    constructor() : this(RulesLoader.loadRules())
 
     /**
      * Convert first name from nominative case to specified case

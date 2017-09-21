@@ -1,13 +1,13 @@
-package kt.petrovich.util.rules
+package kt.petrovich.rules
 
-import kt.petrovich.util.rules.data.Rules
+import kt.petrovich.rules.data.Rules
 import org.ho.yaml.Yaml
 
 import java.io.File
 import java.io.FileNotFoundException
 
 /**
- * @author DMITRY KNYAZEV
+ * @author Dmitrii Kniazev
  * @since 31.05.2014
  */
 class RulesLoader private constructor() {

@@ -5,7 +5,7 @@ package kt.petrovich;
  * @author Dmitrii Kniazev
  * @since 16.08.2017
  */
-enum class Gender(val rusName: String) {
+enum class Gender(private val rusName: String) {
     MALE("мужской"),
     FEMALE("женский"),
     ANDROGYNOUS("средний");

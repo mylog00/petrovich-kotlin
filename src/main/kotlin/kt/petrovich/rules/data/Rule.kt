@@ -1,7 +1,7 @@
-package kt.petrovich.util.rules.data
+package kt.petrovich.rules.data
 
 /**
- * @author DMITRY KNYAZEV
+ * @author Dmitrii Kniazev
  * @since 08.06.2014
  */
 class Rule {
