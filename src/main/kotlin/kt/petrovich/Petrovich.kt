@@ -4,7 +4,6 @@ import kt.petrovich.rules.RulesLoader
 import kt.petrovich.rules.data.Rule
 import kt.petrovich.rules.data.RuleSet
 import kt.petrovich.rules.data.Rules
-import org.apache.commons.lang3.StringUtils
 
 import java.io.FileNotFoundException
 import java.util.ArrayList
@@ -96,7 +95,7 @@ class Petrovich(private val rules: Rules) {
             val modifiedWord = findAndApply(splittedName[index], genderCase, nameCase, ruleSet, features)
             result.add(modifiedWord)
         }
-        return StringUtils.join(result, "-")
+        return result.joinToString("-")
     }
 
     private fun findAndApply(name: String, genderCase: Gender, nameCase: Case, ruleSet: RuleSet?, features: Map<String, Boolean>): String {

@@ -1,6 +1,5 @@
 package kt.petrovich
 
-import org.apache.commons.lang3.StringUtils
 import org.junit.Test
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -100,7 +99,7 @@ class PetrovichTest {
             BufferedReader(InputStreamReader(it, "UTF-8")).use {
                 var str: String? = it.readLine()
                 while (str != null) {
-                    val line: List<String> = StringUtils.deleteWhitespace(str).split(",")
+                    val line: List<String> = str.replace(" ", "").split(",")
                     res.add(line)
                     str = it.readLine()
                 }
