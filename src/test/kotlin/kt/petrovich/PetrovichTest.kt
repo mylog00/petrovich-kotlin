@@ -12,7 +12,7 @@ import kotlin.test.assertTrue
  */
 class PetrovichTest {
     @Test
-    fun TDetectGender() {
+    fun detectGenderTest() {
         val maleString = "Алексеевич"
         val femaleString = "Алексеевна"
         val wrongString = "блаблабла"
@@ -23,7 +23,7 @@ class PetrovichTest {
     }
 
     @Test
-    fun TFirstName() {
+    fun firstNameTest() {
         val p = Petrovich()
         val strings = loadTestSources("FirstNames.csv")
 
@@ -47,7 +47,7 @@ class PetrovichTest {
     }
 
     @Test
-    fun TLastName() {
+    fun lastNameTest() {
         val p = Petrovich()
         val strings = loadTestSources("LastNames.csv")
 
@@ -66,7 +66,7 @@ class PetrovichTest {
     }
 
     @Test
-    fun TMiddleName() {
+    fun middleNameTest() {
         val p = Petrovich()
         val strings = loadTestSources("MiddleNames.csv")
 

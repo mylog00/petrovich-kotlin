@@ -6,7 +6,6 @@ import kt.petrovich.rules.Rules
 import kt.petrovich.rules.RulesLoader
 import java.io.FileNotFoundException
 import java.util.ArrayList
-import java.util.Arrays
 import java.util.HashMap
 
 /**
@@ -115,8 +114,8 @@ class Petrovich(private val rules: Rules) {
         return findRule(name, genderCase, ruleGroup.suffixes, false, tags)
     }
 
-    private fun findRule(name: String, genderCase: Gender, rules: Array<Rule>?, matchWholeWord: Boolean, tags: Set<String>): Rule? {
-        for (rule in rules!!) {
+    private fun findRule(name: String, genderCase: Gender, rules: List<Rule>, matchWholeWord: Boolean, tags: Set<String>): Rule? {
+        for (rule in rules) {
             if (matchRule(name, genderCase, rule, matchWholeWord, tags))
                 return rule
         }
@@ -124,24 +123,24 @@ class Petrovich(private val rules: Rules) {
     }
 
     private fun matchRule(name: String, genderCase: Gender, rule: Rule, matchWholeWord: Boolean, tags: Set<String>): Boolean {
-        var name = name
+        var resultName = name
         //todo simplify
         val ex = ArrayList<String>()
-        if (!rule.tags.isEmpty()) ex.addAll(Arrays.asList(*rule.tags))
+        if (!rule.tags.isEmpty()) ex.addAll(tags)
         ex.removeAll(tags)
 
         if (!ex.isEmpty())
             return false
 
-        val genderRule = Gender.valueOf(rule.gender.toUpperCase())
+        val genderRule = rule.gender
         if ((genderRule == Gender.MALE && genderCase == Gender.FEMALE)
                 || (genderRule == Gender.FEMALE && genderCase != Gender.FEMALE)) {
             return false
         }
 
-        name = name.toLowerCase()
+        resultName = resultName.toLowerCase()
         for (chars in rule.test) {
-            val test = if (matchWholeWord) name else name.substring(Math.max(0, name.length - chars.length))
+            val test = if (matchWholeWord) resultName else resultName.substring(Math.max(0, resultName.length - chars.length))
             if (test == chars)
                 return true
         }
@@ -149,16 +148,16 @@ class Petrovich(private val rules: Rules) {
     }
 
     private fun apply(name: String, nameCase: Case, rule: Rule): String {
-        var name = name
+        var resultName = name
         for (str in findCaseModifier(nameCase, rule).toCharArray()) {
             when (str) {
                 '.' -> {
                 }
-                '-' -> name = name.substring(0, name.length - 1)
-                else -> name += str
+                '-' -> resultName = resultName.substring(0, resultName.length - 1)
+                else -> resultName += str
             }
         }
-        return name
+        return resultName
     }
 
     private fun findCaseModifier(nameCase: Case, rule: Rule): String {
