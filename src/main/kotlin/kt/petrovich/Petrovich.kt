@@ -24,12 +24,8 @@ class Petrovich(private val rules: Rules) {
     constructor(path: String) : this(RulesLoader.loadRules(path))
 
     /**
-     * Load rules from default file path.
-     * Default path is "current_dir\rules.yml"
-     *
-     * @throws FileNotFoundException if file path not exist
+     * Load rules from default file from resources.
      */
-    @Throws(FileNotFoundException::class)
     constructor() : this(RulesLoader.loadRules())
 
     /**
