@@ -1,6 +1,5 @@
 package kt.petrovich
 
-import org.apache.commons.lang3.StringUtils
 import org.junit.Test
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -13,7 +12,7 @@ import kotlin.test.assertTrue
  */
 class PetrovichTest {
     @Test
-    fun TDetectGender() {
+    fun detectGenderTest() {
         val maleString = "Алексеевич"
         val femaleString = "Алексеевна"
         val wrongString = "блаблабла"
@@ -24,7 +23,7 @@ class PetrovichTest {
     }
 
     @Test
-    fun TFirstName() {
+    fun firstNameTest() {
         val p = Petrovich()
         val strings = loadTestSources("FirstNames.csv")
 
@@ -48,7 +47,7 @@ class PetrovichTest {
     }
 
     @Test
-    fun TLastName() {
+    fun lastNameTest() {
         val p = Petrovich()
         val strings = loadTestSources("LastNames.csv")
 
@@ -67,7 +66,7 @@ class PetrovichTest {
     }
 
     @Test
-    fun TMiddleName() {
+    fun middleNameTest() {
         val p = Petrovich()
         val strings = loadTestSources("MiddleNames.csv")
 
@@ -100,7 +99,7 @@ class PetrovichTest {
             BufferedReader(InputStreamReader(it, "UTF-8")).use {
                 var str: String? = it.readLine()
                 while (str != null) {
-                    val line: List<String> = StringUtils.deleteWhitespace(str).split(",")
+                    val line: List<String> = str.replace(" ", "").split(",")
                     res.add(line)
                     str = it.readLine()
                 }

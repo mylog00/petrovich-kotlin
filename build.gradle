@@ -1,10 +1,13 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm").version("1.1.4-3")
+    id("org.jetbrains.kotlin.jvm").version("1.1.50")
 }
 
 // tag::properties
-group 'com.petrovich'
-version '0.2.0-SNAPSHOT'
+group "com.petrovich"
+version "0.2.0-SNAPSHOT"
+
+final def jackson_version = "2.9.0"
+final def junit_version = "4.12"
 // end::properties
 
 // tag::repositories
@@ -27,27 +30,37 @@ jar {
 // tag::dependencies
 dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib-jre8")
-    compile("org.jyaml:jyaml:1.3")
-    compile("org.apache.commons:commons-lang3:3.3.2")
+    compile("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jackson_version")
+    compile("com.fasterxml.jackson.core:jackson-databind:$jackson_version")
     //test dependencies
     testCompile("org.jetbrains.kotlin:kotlin-test")
     testCompile("org.jetbrains.kotlin:kotlin-test-junit")
-    testCompile("junit:junit:4.12")
+    testCompile("junit:junit:$junit_version")
 }
 // end::dependencies
 
+// tag::source sets
+sourceSets {
+    main {
+        resources {
+            srcDirs += ["petrovich-rules/"]
+            includes += ["gender.yml", "rules.yml"]
+        }
+    }
+}
+// end::source sets
+
 // tag::kotlin-compile
 compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }
 // end::kotlin-compile
 
 // tag::wrapper
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.2'
 }
 // end::wrapper
-

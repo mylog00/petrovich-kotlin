@@ -1,20 +1,15 @@
-package kt.petrovich.util.rules
+package kt.petrovich.rules
 
-import kt.petrovich.util.rules.data.Rules
-import org.ho.yaml.Yaml
-
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import java.io.File
 import java.io.FileNotFoundException
 
 /**
- * @author DMITRY KNYAZEV
+ * @author Dmitrii Kniazev
  * @since 31.05.2014
  */
 class RulesLoader private constructor() {
-    init {
-        throw AssertionError("It helper class. Create instance forbidden")
-    }
-
     companion object {
         private val defaultRulesPath = Thread.currentThread()
                 .contextClassLoader
@@ -30,7 +25,7 @@ class RulesLoader private constructor() {
         @Throws(FileNotFoundException::class)
         @JvmOverloads
         fun loadRules(path: String = defaultRulesPath): Rules {
-            return Yaml.loadType(File(path), Rules::class.java)
+            return ObjectMapper(YAMLFactory()).readValue(File(path), Rules::class.java)
         }
     }
 }
