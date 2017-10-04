@@ -1,13 +1,27 @@
-plugins {
-    id("org.jetbrains.kotlin.jvm").version("1.1.51")
+// tag::plugins
+buildscript {
+    ext.kotlin_version = "1.1.51"
+    ext.junit_version = "1.0.1"
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath("org.junit.platform:junit-platform-gradle-plugin:$junit_version")
+    }
 }
+apply plugin: "kotlin"
+apply plugin: "org.junit.platform.gradle.plugin"
+// end::plugins
 
 // tag::properties
 group "com.petrovich"
 version "0.2.0-SNAPSHOT"
 
 final def jackson_version = "2.9.1"
-final def junit_version = "4.12"
+final def junit_version = "5.0.1"
 // end::properties
 
 // tag::repositories
@@ -34,8 +48,9 @@ dependencies {
     compile("com.fasterxml.jackson.core:jackson-databind:$jackson_version")
     //test dependencies
     testCompile("org.jetbrains.kotlin:kotlin-test")
-    testCompile("org.jetbrains.kotlin:kotlin-test-junit")
-    testCompile("junit:junit:$junit_version")
+    testCompile("org.junit.jupiter:junit-jupiter-api:$junit_version")
+    testCompile("org.junit.jupiter:junit-jupiter-params:$junit_version")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:$junit_version")
 }
 // end::dependencies
 
