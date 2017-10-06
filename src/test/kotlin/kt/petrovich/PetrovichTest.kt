@@ -2,7 +2,6 @@ package kt.petrovich
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvFileSource
 
@@ -15,20 +14,8 @@ class PetrovichTest {
     companion object {
         private val PETROVICH: Petrovich = Petrovich()
     }
-    
-    @DisplayName("Gender detection test")
-    @Test
-    fun detectGenderTest() {
-        val maleGender = Gender.detectGender("Алексеевич")
-        val femaleGender = Gender.detectGender("Алексеевна")
-        val androgynousGender = Gender.detectGender("блаблабла")
 
-        Assertions.assertEquals(Gender.MALE, maleGender)
-        Assertions.assertEquals(Gender.FEMALE, femaleGender)
-        Assertions.assertEquals(Gender.ANDROGYNOUS, androgynousGender)
-    }
-
-    @DisplayName("First name declension")
+    @DisplayName("First name declension test")
     @ParameterizedTest(name = "{index}: first name=''{0}''; gender=''{1}''; case=''{2}''; result=''{3}''")
     @CsvFileSource(resources = arrayOf("/FirstNames.csv"))
     fun firstNameTest(
@@ -40,7 +27,7 @@ class PetrovichTest {
         Assertions.assertEquals(expected, result)
     }
 
-    @DisplayName("Last name declension")
+    @DisplayName("Last name declension test")
     @ParameterizedTest(name = "{index}: last name=''{0}''; gender=''{1}''; case=''{2}''; result=''{3}''")
     @CsvFileSource(resources = arrayOf("/LastNames.csv"))
     fun lastNameTest(
@@ -52,7 +39,7 @@ class PetrovichTest {
         Assertions.assertEquals(expected, result)
     }
 
-    @DisplayName("Middle name declension")
+    @DisplayName("Middle name declension test")
     @ParameterizedTest(name = "{index}: middle name=''{0}''; gender=''{1}''; case=''{2}''; result=''{3}''")
     @CsvFileSource(resources = arrayOf("/MiddleNames.csv"))
     fun middleNameTest(
