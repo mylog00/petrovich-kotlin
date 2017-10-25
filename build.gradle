@@ -76,6 +76,6 @@ compileTestKotlin {
 
 // tag::wrapper
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.2'
+    gradleVersion = '4.2.1'
 }
 // end::wrapper
