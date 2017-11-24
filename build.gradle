@@ -1,7 +1,7 @@
 // tag::plugins
 buildscript {
-    ext.kotlin_version = "1.1.51"
-    ext.junit_version = "1.0.1"
+    ext.kotlin_version = "1.1.60"
+    ext.junit_version = "1.0.2"
 
     repositories {
         mavenCentral()
@@ -20,8 +20,8 @@ apply plugin: "org.junit.platform.gradle.plugin"
 group "com.petrovich"
 version "0.2.0-SNAPSHOT"
 
-final def jackson_version = "2.9.1"
-final def junit_version = "5.0.1"
+final def jackson_version = "2.9.2"
+final def junit_version = "5.0.2"
 // end::properties
 
 // tag::repositories
@@ -76,6 +76,6 @@ compileTestKotlin {
 
 // tag::wrapper
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.2.1'
+    gradleVersion = '4.3.1'
 }
 // end::wrapper
