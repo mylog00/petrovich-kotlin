@@ -14,7 +14,7 @@ class RulesLoaderTest {
     @Test
     fun wrongFilePathTest() {
         Assertions.assertThrows(
-                FileNotFoundException::class.java,
-                { RulesLoader.loadRules("wrong_path/rules.yaml") })
+                FileNotFoundException::class.java
+        ) { RulesLoader.loadRules("wrong_path/rules.yaml") }
     }
 }

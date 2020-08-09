@@ -1,4 +1,4 @@
-package kt.petrovich;
+package kt.petrovich
 
 /**
  * @param rusName gender in russian language

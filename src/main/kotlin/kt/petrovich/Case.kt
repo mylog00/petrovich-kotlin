@@ -1,4 +1,4 @@
-package kt.petrovich;
+package kt.petrovich
 
 /**
  * @param rusName case in russian language
