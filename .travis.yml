@@ -1,15 +1,9 @@
 language: java
-
 os: linux
-
+# Ubuntu Focal 20.04
+dist: focal
 jdk:
   - oraclejdk8
   - openjdk8
   - oraclejdk11
   - openjdk11
-
-jobs:
-  include:
-    - dist: xenial # Ubuntu Xenial 16.04 default
-    - dist: bionic # Ubuntu Bionic 18.04
-    - dist: focal  # Ubuntu Focal 20.04
