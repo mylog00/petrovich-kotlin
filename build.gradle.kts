@@ -2,13 +2,13 @@ import java.time.ZonedDateTime
 
 // tag::plugins
 plugins {
-    kotlin("jvm") version "1.4.0"
+    kotlin("jvm") version "1.4.10"
 }
 // end::plugins
 
 // tag::properties
 group = "com.petrovich"
-version = "0.2.1-SNAPSHOT"
+version = "0.1.1-SNAPSHOT"
 
 val jacksonVersion = "2.9.2"
 val junitVersion = "5.6.2"
@@ -50,6 +50,10 @@ sourceSets {
     main {
         resources.srcDir("petrovich-rules/")
         resources.include("gender.yml", "rules.yml")
+    }
+    test {
+        resources.srcDir("petrovich-eval/")
+        resources.include("*.tsv", "*.csv")
     }
 }
 // end::source sets
