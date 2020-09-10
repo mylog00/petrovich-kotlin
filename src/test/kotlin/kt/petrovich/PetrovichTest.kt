@@ -17,7 +17,7 @@ class PetrovichTest {
 
     @DisplayName("First name declension test")
     @ParameterizedTest(name = "{index}: first name=''{0}''; gender=''{1}''; case=''{2}''; result=''{3}''")
-    @CsvFileSource(resources = arrayOf("/FirstNames.csv"))
+    @CsvFileSource(resources = ["/FirstNames.csv"])
     fun firstNameTest(
             firstName: String,
             gender: Gender,
@@ -29,7 +29,7 @@ class PetrovichTest {
 
     @DisplayName("Last name declension test")
     @ParameterizedTest(name = "{index}: last name=''{0}''; gender=''{1}''; case=''{2}''; result=''{3}''")
-    @CsvFileSource(resources = arrayOf("/LastNames.csv"))
+    @CsvFileSource(resources = ["/LastNames.csv"])
     fun lastNameTest(
             lastName: String,
             gender: Gender,
@@ -41,7 +41,7 @@ class PetrovichTest {
 
     @DisplayName("Middle name declension test")
     @ParameterizedTest(name = "{index}: middle name=''{0}''; gender=''{1}''; case=''{2}''; result=''{3}''")
-    @CsvFileSource(resources = arrayOf("/MiddleNames.csv"))
+    @CsvFileSource(resources = ["/MiddleNames.csv"])
     fun middleNameTest(
             middleName: String,
             gender: Gender,
