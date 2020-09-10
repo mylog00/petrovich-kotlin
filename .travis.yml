@@ -1,9 +1,7 @@
 language: java
 os: linux
-# Ubuntu Bionic 18.04
-dist: bionic
+# Ubuntu Focal 20.04
+dist: focal
 jdk:
-  - oraclejdk8
-  - openjdk8
   - oraclejdk11
   - openjdk11
