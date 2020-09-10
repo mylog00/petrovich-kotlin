@@ -1,11 +1,15 @@
 language: java
 
-#uses Container instead Virtual machine on GCE
-sudo: false
-
-#Ubuntu Trusty 14.04. 
-dist: trusty
+os: linux
 
 jdk:
   - oraclejdk8
   - openjdk8
+  - oraclejdk11
+  - openjdk11
+
+jobs:
+  include:
+    - dist: xenial # Ubuntu Xenial 16.04 default
+    - dist: bionic # Ubuntu Bionic 18.04
+    - dist: focal  # Ubuntu Focal 20.04
