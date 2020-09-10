@@ -1,11 +1,7 @@
 language: java
-
-#uses Container instead Virtual machine on GCE
-sudo: false
-
-#Ubuntu Trusty 14.04. 
-dist: trusty
-
+os: linux
+# Ubuntu Focal 20.04
+dist: focal
 jdk:
-  - oraclejdk8
-  - openjdk8
+  - oraclejdk11
+  - openjdk11
