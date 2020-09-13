@@ -1,52 +1,81 @@
 package kt.petrovich.rules
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import kt.petrovich.Case
 import kt.petrovich.Gender
-import kt.petrovich.exceptoins.RulesCreationException
 
 /**
  * @author Dmitrii Kniazev
  * @since 08.06.2014
  */
 
-class Rule constructor(
-        val gender: Gender,
-        val test: List<String>,
-        val mods: List<String>,
-        val tags: List<String>) {
+class Rule @JsonCreator constructor(
+        @JsonProperty("gender") gender: String,
+        @JsonProperty("test") val test: List<String>,
+        @JsonProperty("mods") val mods: List<String>,
+        @JsonProperty("tags") tags: List<String>?) {
+    val gender: Gender = Gender.of(gender)
+    private val firstWord: Boolean = (tags != null) && tags.isNotEmpty()
 
-    @Throws(RulesCreationException::class)
-    @JsonCreator constructor(props: Map<String, Any>) : this(
-            gender = getGender(props["gender"]),
-            test = getStringList(props["test"]),
-            mods = getStringList(props["mods"]),
-            tags = getStringList(props.getOrDefault("tags", emptyList<String>())))
-
-    private companion object {
-        @Throws(RulesCreationException::class)
-        private fun getGender(genderStr: Any?): Gender =
-                if (genderStr is String) {
-                    try {
-                        Gender.valueOf(genderStr.toUpperCase())
-                    } catch (iae: IllegalArgumentException) {
-                        val message = "Can't find gender with the specified name:\'$genderStr\'"
-                        throw RulesCreationException(message, iae)
-                    }
-                } else {
-                    throw RulesCreationException("Gender is not string:$genderStr")
-                }
-
-        @Throws(RulesCreationException::class)
-        private fun getStringList(obj: Any?): List<String> {
-            if (obj is List<*> && obj.all { it is String }) {
-                @Suppress("UNCHECKED_CAST")
-                return obj as List<String>
-            } else {
-                throw RulesCreationException("This object is not a list of string:\'$obj\'")
+    fun matchRule(word: String, gender: Gender, firstWord: Boolean): Boolean {
+        if (!gender.eq(this.gender)) {
+            return false
+        }
+        if (this.firstWord && !firstWord) {
+            return false
+        }
+        for (v in this.test) {
+            if (word.endsWith(v)) {
+                return true
             }
+        }
+        return false
+    }
+
+    fun apply(name: String, case: Case): String {
+        val modifier = getModifier(case)
+        return applyModifier(name, modifier)
+    }
+
+    private fun getModifier(case: Case): String {
+        return when (case) {
+            Case.NOMINATIVE -> EMPTY
+            Case.GENITIVE -> mods[0]
+            Case.DATIVE -> mods[1]
+            Case.ACCUSATIVE -> mods[2]
+            Case.INSTRUMENTAL -> mods[3]
+            Case.PREPOSITIONAL -> mods[4]
         }
     }
 
+    private fun applyModifier(name: String, modifier: String): String {
+        val result = StringBuilder(name)
+        val postfix = StringBuilder()
+        for (c in modifier.toCharArray()) {
+            when (c) {
+                '-' -> result.remove()
+                '.' -> {
+                }
+                else -> postfix.append(c)
+            }
+        }
+        return result.append(postfix).toString()
+    }
+
+    /**
+     * Remove last character.
+     */
+    private fun StringBuilder.remove() {
+        val len = this.length - 1
+        if (len >= 0) {
+            this.deleteAt(len)
+        }
+    }
+
+    companion object {
+        private const val EMPTY = ""
+    }
 }
 
 

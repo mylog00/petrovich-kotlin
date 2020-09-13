@@ -3,10 +3,8 @@ package kt.petrovich
 import kt.petrovich.rules.Rule
 import kt.petrovich.rules.RuleGroup
 import kt.petrovich.rules.Rules
-import kt.petrovich.rules.RulesLoader
 import java.io.FileNotFoundException
 import java.util.ArrayList
-import java.util.HashMap
 
 /**
  * @author Dmitrii Kniazev
@@ -21,151 +19,76 @@ class Petrovich(private val rules: Rules) {
      * @throws FileNotFoundException if file path not exist
      */
     @Throws(FileNotFoundException::class)
-    constructor(path: String) : this(RulesLoader.loadRules(path))
+    public constructor(path: String) : this(Rules.loadRules(path))
 
     /**
      * Load rules from default file from resources.
      */
-    constructor() : this(RulesLoader.loadRules())
+    public constructor() : this(Rules.loadRules())
 
     /**
      * Convert first name from nominative case to specified case
      *
      * @param firstName  first name at nominative case
-     * @param genderCase gender
-     * @param nameCase   case
+     * @param gender gender
+     * @param case   case
      * @return converted first name
      */
-    fun firstName(firstName: String, genderCase: Gender, nameCase: Case): String {
-        return convertTo(firstName, genderCase, nameCase, rules.firstName)
+    public fun firstName(firstName: String, gender: Gender, case: Case): String {
+        return convertTo(rules.firstName, firstName, gender, case)
     }
 
     /**
      * Convert last name from nominative case to specified case
      *
      * @param lastName   last name at nominative case
-     * @param genderCase gender
-     * @param nameCase   case
+     * @param gender gender
+     * @param case   case
      * @return converted last name
      */
-    fun lastName(lastName: String, genderCase: Gender, nameCase: Case): String {
-        return convertTo(lastName, genderCase, nameCase, rules.lastName)
+    public fun lastName(lastName: String, gender: Gender, case: Case): String {
+        return convertTo(rules.lastName, lastName, gender, case)
     }
 
     /**
      * Convert middle name from nominative case to specified case
      *
      * @param middleName middle name at nominative case
-     * @param genderCase gender
-     * @param nameCase   case
+     * @param gender gender
+     * @param case   case
      * @return converted middle name
      */
-    fun middleName(middleName: String, genderCase: Gender, nameCase: Case): String {
-        return convertTo(middleName, genderCase, nameCase, rules.middleName)
+    public fun middleName(middleName: String, gender: Gender, case: Case): String {
+        return convertTo(rules.middleName, middleName, gender, case)
     }
 
     /**
      * Convert middle name from nominative case to specified case with auto detect gender
      *
      * @param middleName middle name at nominative case
-     * @param nameCase   case
+     * @param case   case
      * @return converted middle name
      */
-    fun middleName(middleName: String, nameCase: Case): String {
+    public fun middleName(middleName: String, case: Case): String {
         val genderCase = Gender.detectGender(middleName)
-        return middleName(middleName, genderCase, nameCase)
+        return middleName(middleName, genderCase, case)
     }
 
-    private fun convertTo(sourceName: String, genderCase: Gender, nameCase: Case, ruleGroup: RuleGroup?): String {
-        val splittedName = sourceName.split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+    private fun convertTo(ruleGroup: RuleGroup, name: String, gender: Gender, case: Case): String {
+        val splittedName = name.trim().toLowerCase().split("-").toTypedArray()
         val result = ArrayList<String>(splittedName.size)
-        for (index in splittedName.indices) {
-            val firstWord = index == 0 && splittedName.size > 1
-            val features = object : HashMap<String, Boolean>() {
-                init {
-                    put("first_word", firstWord)
-                }
+        var firstWord = splittedName.size > 1
+        for (word in splittedName) {
+            val rule: Rule? = ruleGroup.getRule(word, gender, firstWord)
+            if (rule == null) {
+                result.add(word)
+            } else {
+                result.add(rule.apply(word, case))
             }
-            val modifiedWord = findAndApply(splittedName[index], genderCase, nameCase, ruleGroup, features)
-            result.add(modifiedWord)
+            if (firstWord) {
+                firstWord = false
+            }
         }
         return result.joinToString("-")
     }
-
-    private fun findAndApply(name: String, genderCase: Gender, nameCase: Case, ruleGroup: RuleGroup?, features: Map<String, Boolean>): String {
-        val rule = findRule(name, genderCase, ruleGroup, features) ?: return name
-
-        return apply(name, nameCase, rule)
-    }
-
-    private fun findRule(name: String, genderCase: Gender, ruleGroup: RuleGroup?, features: Map<String, Boolean>): Rule? {
-        val tags = features.keys
-
-        val rule: Rule?
-        if (!ruleGroup!!.exceptions.isEmpty()) {
-            rule = findRule(name, genderCase, ruleGroup.exceptions, true, tags)
-            if (rule != null)
-                return rule
-        }
-        return findRule(name, genderCase, ruleGroup.suffixes, false, tags)
-    }
-
-    private fun findRule(name: String, genderCase: Gender, rules: List<Rule>, matchWholeWord: Boolean, tags: Set<String>): Rule? {
-        for (rule in rules) {
-            if (matchRule(name, genderCase, rule, matchWholeWord, tags))
-                return rule
-        }
-        return null
-    }
-
-    private fun matchRule(name: String, genderCase: Gender, rule: Rule, matchWholeWord: Boolean, tags: Set<String>): Boolean {
-        var resultName = name
-        //todo simplify
-        val ex = ArrayList<String>()
-        if (!rule.tags.isEmpty()) ex.addAll(tags)
-        ex.removeAll(tags)
-
-        if (!ex.isEmpty())
-            return false
-
-        val genderRule = rule.gender
-        if ((genderRule == Gender.MALE && genderCase == Gender.FEMALE)
-                || (genderRule == Gender.FEMALE && genderCase != Gender.FEMALE)) {
-            return false
-        }
-
-        resultName = resultName.toLowerCase()
-        for (chars in rule.test) {
-            val test = if (matchWholeWord) resultName else resultName.substring(Math.max(0, resultName.length - chars.length))
-            if (test == chars)
-                return true
-        }
-        return false
-    }
-
-    private fun apply(name: String, nameCase: Case, rule: Rule): String {
-        var resultName = name
-        for (str in findCaseModifier(nameCase, rule).toCharArray()) {
-            when (str) {
-                '.' -> {
-                }
-                '-' -> resultName = resultName.substring(0, resultName.length - 1)
-                else -> resultName += str
-            }
-        }
-        return resultName
-    }
-
-    private fun findCaseModifier(nameCase: Case, rule: Rule): String {
-        when (nameCase) {
-            Case.NOMINATIVE -> return ""
-            Case.GENITIVE -> return rule.mods[0]
-            Case.DATIVE -> return rule.mods[1]
-            Case.ACCUSATIVE -> return rule.mods[2]
-            Case.INSTRUMENTAL -> return rule.mods[3]
-            Case.PREPOSITIONAL -> return rule.mods[4]
-            else -> throw IllegalArgumentException(String.format("Unknown grammatical case: %s", nameCase))
-        }
-    }
-
 }
