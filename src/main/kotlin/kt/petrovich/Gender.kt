@@ -1,16 +1,34 @@
 package kt.petrovich
 
 /**
- * @param rusName gender in russian language
+ * @param value gender in type string
  * @author Dmitrii Kniazev
  * @since 16.08.2017
  */
-enum class Gender(private val rusName: String) {
-    MALE("мужской"),
-    FEMALE("женский"),
-    ANDROGYNOUS("средний");
+enum class Gender(private val value: String) {
+    MALE("male"),
+    FEMALE("female"),
+    ANDROGYNOUS("androgynous");
+
+    fun eq(gender: Gender): Boolean {
+        if (this == ANDROGYNOUS) {
+            return true
+        }
+        return when (gender) {
+            ANDROGYNOUS -> true
+            else -> this == gender
+        }
+    }
 
     companion object {
+        fun of(gender: String): Gender {
+            return when (gender) {
+                MALE.value -> MALE
+                FEMALE.value -> FEMALE
+                else -> ANDROGYNOUS
+            }
+        }
+
         /**
          * Detect gender by middle name.
          *

@@ -8,9 +8,9 @@ plugins {
 
 // tag::properties
 group = "com.petrovich"
-version = "0.1.1-SNAPSHOT"
+version = "0.2.0-SNAPSHOT"
 
-val jacksonVersion = "2.9.2"
+val jacksonVersion = "2.11.2"
 val junitVersion = "5.6.2"
 // end::properties
 
